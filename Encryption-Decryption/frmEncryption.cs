@@ -8,24 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static LockByte.clsUtil;
+
 
 namespace LockByte.Encryption_Decryption
 {
     public partial class frmEncryption : Form
     {
-        public class OnEncryptionCompletedEventArgs : EventArgs
-        { 
-            public string originalfilepath { get; }
-            public string encryptedfilepath { get; }
-            public string key {  get; }
-
-            public OnEncryptionCompletedEventArgs(string originalfilepath, string encryptedfilepath, string key)
-            {
-                this.originalfilepath = originalfilepath;
-                this.encryptedfilepath = encryptedfilepath;
-                this.key = key;
-            }
-        }
         public event EventHandler<OnEncryptionCompletedEventArgs> OnEncryptionCompleted;
         protected virtual void RaiseOnEncryptionCompletedEvent(OnEncryptionCompletedEventArgs e)
         {
@@ -54,8 +43,8 @@ namespace LockByte.Encryption_Decryption
             using (EncryptionSaveFileDialog)
             {
                 
-                EncryptionSaveFileDialog.DefaultExt = $".{Path.GetExtension(_filepath)}.lockbyte";
-                EncryptionSaveFileDialog.Filter = "Encrypted Files (*.lockbyte)|*.lockbyte|All Files (*.*)|*.*";
+                EncryptionSaveFileDialog.DefaultExt = $".{Path.GetExtension(_filepath)}{GlobalEncryptionExtension}";
+                EncryptionSaveFileDialog.Filter = $"Encrypted Files (*{GlobalEncryptionExtension})|*{GlobalEncryptionExtension}|All Files (*.*)|*.*";
 
                 EncryptionSaveFileDialog.FileName = Path.GetFileNameWithoutExtension(_filepath) + EncryptionSaveFileDialog.DefaultExt;
 
@@ -65,11 +54,17 @@ namespace LockByte.Encryption_Decryption
                     string inputFile = _filepath;  
                     string key = txbKey.Text.Trim();  
 
-                    clsSymmetricEncryption.EncryptFile(inputFile, encryptedFilePath, key);
+                    if (clsSymmetricEncryption.EncryptFile(inputFile, encryptedFilePath, key))
+                    {
 
-                    RaiseOnEncryptionCompletedEvent(new OnEncryptionCompletedEventArgs(inputFile, encryptedFilePath, key));
-                    MessageBox.Show("File Encrypted Successfully.", "Encryption Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
+                        RaiseOnEncryptionCompletedEvent(new OnEncryptionCompletedEventArgs(inputFile, encryptedFilePath, key));
+                        MessageBox.Show("File Encrypted Successfully.", "Encryption Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                    else
+                        MessageBox.Show("An error occurred during encryption. ", "Encryption Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    
                 }
             }
         }

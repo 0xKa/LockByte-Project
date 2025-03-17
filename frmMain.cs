@@ -70,24 +70,31 @@ namespace LockByte
             frmE.OnEncryptionCompleted += FrmEncryption_OnEncryptionCompleted;
             frmE.ShowDialog();
         }
-        private void FrmEncryption_OnEncryptionCompleted(object sender, frmEncryption.OnEncryptionCompletedEventArgs e)
+        private void FrmEncryption_OnEncryptionCompleted(object sender, clsUtil.OnEncryptionCompletedEventArgs e)
         {
             lblMessage.Visible = true;
             lblMessage.Text = $"Selected File has been Encrypted Successfully.\nEncrypted File Path: {e.encryptedfilepath}";
+            btnDecrypt.Visible = false;
             btnEncrypt.Visible = false;
         }
 
         private void btnDecrypt_Click(object sender, EventArgs e)
         {
+            if (!clsUtil.IsValidExtension(_filepath))
+            {
+                MessageBox.Show("File Extension Invalid!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             frmDecryption frmD = new frmDecryption(_filepath);
             frmD.OnDecryptionCompleted += frmDecryption_OnDecryptionCompleted;
             frmD.ShowDialog();
         }
-        private void frmDecryption_OnDecryptionCompleted(object sender, frmDecryption.OnDecryptionCompletedEventArgs e)
+        private void frmDecryption_OnDecryptionCompleted(object sender, clsUtil.OnDecryptionCompletedEventArgs e)
         {
             lblMessage.Visible = true;
             lblMessage.Text = $"Selected File has been Decrypted Successfully.\nDecrypted File Path: {e.decryptedfilepath}";
             btnDecrypt.Visible = false;
+            btnEncrypt.Visible = false;
         }
     }
 }

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsUtil.cs" />
     <Compile Include="Encryption-Decryption\clsSymmetricEncryption.cs" />
     <Compile Include="Encryption-Decryption\frmDecryption.cs">
       <SubType>Form</SubType>

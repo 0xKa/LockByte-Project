@@ -29,7 +29,7 @@ namespace LockByte
 
         public static void EncryptFile(string filePath, string key)
         {
-            string encryptedFilePath = filePath + ".lockbyte"; // Output file
+            string encryptedFilePath = filePath + clsUtil.GlobalEncryptionExtension; // Output file
 
             using (Aes aesAlg = Aes.Create())
             {
@@ -48,23 +48,32 @@ namespace LockByte
                 }
             }
         }
-        public static void EncryptFile(string filePath, string encryptedFilePath, string key)
+        public static bool EncryptFile(string filePath, string encryptedFilePath, string key)
         {
-            using (Aes aesAlg = Aes.Create())
+            try
             {
-                aesAlg.Key = GetValidKey256bit(key);  //encrypt the key using SHA-256
-                aesAlg.GenerateIV();
-
-                using (FileStream fsOut = new FileStream(encryptedFilePath, FileMode.Create))
+                using (Aes aesAlg = Aes.Create())
                 {
-                    fsOut.Write(aesAlg.IV, 0, aesAlg.IV.Length);
+                    aesAlg.Key = GetValidKey256bit(key);  // Encrypt the key using SHA-256
+                    aesAlg.GenerateIV();
 
-                    using (CryptoStream csEncrypt = new CryptoStream(fsOut, aesAlg.CreateEncryptor(), CryptoStreamMode.Write))
-                    using (FileStream fsIn = new FileStream(filePath, FileMode.Open))
+                    using (FileStream fsOut = new FileStream(encryptedFilePath, FileMode.Create))
                     {
-                        fsIn.CopyTo(csEncrypt);
+                        fsOut.Write(aesAlg.IV, 0, aesAlg.IV.Length);
+
+                        using (CryptoStream csEncrypt = new CryptoStream(fsOut, aesAlg.CreateEncryptor(), CryptoStreamMode.Write))
+                        using (FileStream fsIn = new FileStream(filePath, FileMode.Open))
+                        {
+                            fsIn.CopyTo(csEncrypt);
+                        }
                     }
                 }
+
+                return true; 
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -91,27 +100,39 @@ namespace LockByte
                 }
             }
         }
-        public static void DecryptFile(string encryptedFilePath, string decryptedFilePath, string key)
+        public static bool DecryptFile(string encryptedFilePath, string decryptedFilePath, string key)
         {
-            using (Aes aesAlg = Aes.Create())
+            try
             {
-                aesAlg.Key = GetValidKey256bit(key);  
-
-                using (FileStream fsIn = new FileStream(encryptedFilePath, FileMode.Open))
+                using (Aes aesAlg = Aes.Create())
                 {
-                    byte[] iv = new byte[aesAlg.BlockSize / 8];
-                    fsIn.Read(iv, 0, iv.Length);  
+                    aesAlg.Key = GetValidKey256bit(key);
 
-                    aesAlg.IV = iv;  
-
-                    using (CryptoStream csDecrypt = new CryptoStream(fsIn, aesAlg.CreateDecryptor(), CryptoStreamMode.Read))
-                    using (FileStream fsOut = new FileStream(decryptedFilePath, FileMode.Create))
+                    using (FileStream fsIn = new FileStream(encryptedFilePath, FileMode.Open))
                     {
-                        csDecrypt.CopyTo(fsOut);
+                        byte[] iv = new byte[aesAlg.BlockSize / 8];
+                        fsIn.Read(iv, 0, iv.Length);
+
+                        aesAlg.IV = iv;
+
+                        using (CryptoStream csDecrypt = new CryptoStream(fsIn, aesAlg.CreateDecryptor(), CryptoStreamMode.Read))
+                        using (FileStream fsOut = new FileStream(decryptedFilePath, FileMode.Create))
+                        {
+                            csDecrypt.CopyTo(fsOut);
+                        }
                     }
                 }
-            }
 
+                return true; 
+            }
+            catch (CryptographicException)
+            {
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
 

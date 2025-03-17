@@ -8,24 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static LockByte.clsUtil;
 
 namespace LockByte.Encryption_Decryption
 {
     public partial class frmDecryption : Form
     {
-        public class OnDecryptionCompletedEventArgs : EventArgs
-        {
-            public string encryptedfilepath { get; }
-            public string decryptedfilepath { get; }
-            public string key { get; }
-
-            public OnDecryptionCompletedEventArgs(string encryptedfilepath, string decryptedfilepath, string key)
-            {
-                this.encryptedfilepath = encryptedfilepath;
-                this.decryptedfilepath = decryptedfilepath;
-                this.key = key;
-            }
-        }
         public event EventHandler<OnDecryptionCompletedEventArgs> OnDecryptionCompleted;
         protected virtual void RaiseOnDecryptionCompletedEvent(OnDecryptionCompletedEventArgs e)
         {
@@ -50,10 +38,12 @@ namespace LockByte.Encryption_Decryption
                 return;
             }
             
+               
+            
             using (DecryptionSaveFileDialog)
             {
-                DecryptionSaveFileDialog.DefaultExt = ".lockbyte.decrypted";
-                DecryptionSaveFileDialog.Filter = "Encrypted Files (*.lockbyte)|*.lockbyte|All Files (*.*)|*.*";
+                DecryptionSaveFileDialog.DefaultExt = $".{GlobalEncryptionExtension}.decrypted";
+                DecryptionSaveFileDialog.Filter = $"Encrypted Files (*{GlobalEncryptionExtension})|*{GlobalEncryptionExtension}|All Files (*.*)|*.*";
 
                 DecryptionSaveFileDialog.FileName = Path.GetFileNameWithoutExtension(_encryptedfilepath);
 
@@ -63,11 +53,15 @@ namespace LockByte.Encryption_Decryption
                     string decryptedFilePath = DecryptionSaveFileDialog.FileName;
                     string key = txbKey.Text.Trim();
 
-                    clsSymmetricEncryption.DecryptFile(encryptedFilePath, decryptedFilePath, key);
+                    if (clsSymmetricEncryption.DecryptFile(encryptedFilePath, decryptedFilePath, key))
+                    {
+                        RaiseOnDecryptionCompletedEvent(new OnDecryptionCompletedEventArgs(encryptedFilePath, decryptedFilePath, key));
+                        MessageBox.Show("File Decrypted Successfully.", "Decryption Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                    else
+                        MessageBox.Show("Decryption Failed! Please enter the correct key and try again.", "Decryption Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    RaiseOnDecryptionCompletedEvent(new OnDecryptionCompletedEventArgs(encryptedFilePath, decryptedFilePath, key));
-                    MessageBox.Show("File Decrypted Successfully.", "Decryption Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close();
                 }
             }
 
