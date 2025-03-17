@@ -29,7 +29,7 @@ namespace LockByte
 
         public static void EncryptFile(string filePath, string key)
         {
-            string encryptedFilePath = filePath + clsUtil.GlobalEncryptionExtension; // Output file
+            string encryptedFilePath = filePath + clsGlobalSettings.GlobalEncryptionExtension; // Output file
 
             using (Aes aesAlg = Aes.Create())
             {
