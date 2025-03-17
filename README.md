@@ -43,6 +43,8 @@ LockByte is a simple and secure file encryption tool built with **C# and Windows
 - Displays a message box if an incorrect password is entered.
 - Handles file-related errors.
 
-
+## ScreenShots
 ![Start-up Screen](/screenshots/choosing-file.jpg)
+
+
 
