@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LockByte
 {
-    public class clsUtil
+    public class clsGlobalSettings
     {
         public readonly static string GlobalEncryptionExtension = ".lockbyte";
 
