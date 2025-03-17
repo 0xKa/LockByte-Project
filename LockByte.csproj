@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Encryption-Decryption\clsSymmetricEncryption.cs" />
+    <Compile Include="Encryption-Decryption\frmEncryption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Encryption-Decryption\frmEncryption.Designer.cs">
+      <DependentUpon>frmEncryption.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLockByte.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +68,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Encryption-Decryption\frmEncryption.resx">
+      <DependentUpon>frmEncryption.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLockByte.resx">
       <DependentUpon>frmLockByte.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\data-encryption.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\encryption.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\decryption.png" />

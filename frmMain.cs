@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LockByte.Encryption_Decryption;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,22 +39,48 @@ namespace LockByte
         {
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
                 _filepath = openFileDialog.FileName;
 
-            lblChosenFile.Text = _filepath;
+                lblChosenFile.Text = _filepath;
 
-            btnDecrypt.Enabled = true;
-            btnEncrypt.Enabled = true;
-            btnClear.Visible = true;
+                btnDecrypt.Visible = true;
+                btnEncrypt.Visible = true;
+                btnClear.Visible = true;
+                lblMessage.Text = string.Empty;
+
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            btnDecrypt.Enabled = false;
-            btnEncrypt.Enabled = false;
-            btnClear.Visible = false;
             _filepath = null;
+            
+            btnDecrypt.Visible = false;
+            btnEncrypt.Visible = false;
+            btnClear.Visible = false;
+            
+            lblMessage.Text = string.Empty;
             lblChosenFile.Text = string.Empty;
+        }
+
+        private void btnEncrypt_Click(object sender, EventArgs e)
+        {
+            frmEncryption frmEncryption = new frmEncryption(_filepath);
+            frmEncryption.OnEncryptionCompleted += FrmEncryption_OnEncryptionCompleted;
+            frmEncryption.ShowDialog();
+        }
+
+        private void FrmEncryption_OnEncryptionCompleted(object sender, frmEncryption.OnEncryptionCompletedEventArgs e)
+        {
+            lblMessage.Visible = true;
+            lblMessage.Text = $"Selected File has been Encrypted Successfully.\nEncrypted File Path: {e.encryptedfilepath}";
+            btnEncrypt.Visible = false;
+        }
+
+        private void btnDecrypt_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

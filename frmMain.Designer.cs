@@ -38,10 +38,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblChosenFile = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
+            this.DecryptionSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lblMessage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBrowse
@@ -51,7 +51,7 @@
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowse.Font = new System.Drawing.Font("Century Schoolbook", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBrowse.ForeColor = System.Drawing.Color.White;
-            this.btnBrowse.Location = new System.Drawing.Point(441, 234);
+            this.btnBrowse.Location = new System.Drawing.Point(581, 234);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(112, 35);
             this.btnBrowse.TabIndex = 25;
@@ -69,7 +69,7 @@
             this.lblTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblTitle.Font = new System.Drawing.Font("Century Schoolbook", 16.25F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(78, 9);
+            this.lblTitle.Location = new System.Drawing.Point(12, 19);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(122, 41);
             this.lblTitle.TabIndex = 26;
@@ -78,7 +78,6 @@
             // 
             // btnDecrypt
             // 
-            this.btnDecrypt.Enabled = false;
             this.btnDecrypt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.btnDecrypt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btnDecrypt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -90,10 +89,11 @@
             this.btnDecrypt.TabIndex = 27;
             this.btnDecrypt.Text = "&Decrypt";
             this.btnDecrypt.UseVisualStyleBackColor = true;
+            this.btnDecrypt.Visible = false;
+            this.btnDecrypt.Click += new System.EventHandler(this.btnDecrypt_Click);
             // 
             // btnEncrypt
             // 
-            this.btnEncrypt.Enabled = false;
             this.btnEncrypt.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.btnEncrypt.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.btnEncrypt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -105,14 +105,15 @@
             this.btnEncrypt.TabIndex = 28;
             this.btnEncrypt.Text = "&Encrypt";
             this.btnEncrypt.UseVisualStyleBackColor = true;
+            this.btnEncrypt.Visible = false;
+            this.btnEncrypt.Click += new System.EventHandler(this.btnEncrypt_Click);
             // 
             // lblSubTitle
             // 
             this.lblSubTitle.BackColor = System.Drawing.Color.Transparent;
-            this.lblSubTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSubTitle.Font = new System.Drawing.Font("Century Schoolbook", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSubTitle.ForeColor = System.Drawing.Color.White;
-            this.lblSubTitle.Location = new System.Drawing.Point(206, 9);
+            this.lblSubTitle.Location = new System.Drawing.Point(140, 19);
             this.lblSubTitle.Name = "lblSubTitle";
             this.lblSubTitle.Size = new System.Drawing.Size(260, 41);
             this.lblSubTitle.TabIndex = 29;
@@ -122,14 +123,13 @@
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.Font = new System.Drawing.Font("Century Schoolbook", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(12, 93);
+            this.label2.Location = new System.Drawing.Point(12, 78);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 97);
+            this.label2.Size = new System.Drawing.Size(112, 97);
             this.label2.TabIndex = 31;
-            this.label2.Text = "Chosen File:";
+            this.label2.Text = "Selected File:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblChosenFile
@@ -138,9 +138,9 @@
             this.lblChosenFile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblChosenFile.Font = new System.Drawing.Font("Century Schoolbook", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblChosenFile.ForeColor = System.Drawing.Color.White;
-            this.lblChosenFile.Location = new System.Drawing.Point(125, 93);
+            this.lblChosenFile.Location = new System.Drawing.Point(130, 78);
             this.lblChosenFile.Name = "lblChosenFile";
-            this.lblChosenFile.Size = new System.Drawing.Size(428, 97);
+            this.lblChosenFile.Size = new System.Drawing.Size(568, 97);
             this.lblChosenFile.TabIndex = 32;
             this.lblChosenFile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -151,7 +151,7 @@
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.Font = new System.Drawing.Font("Century Schoolbook", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(392, 193);
+            this.btnClear.Location = new System.Drawing.Point(414, 234);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(161, 35);
             this.btnClear.TabIndex = 33;
@@ -164,31 +164,32 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::LockByte.Properties.Resources.LockByte_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 9);
+            this.pictureBox1.Location = new System.Drawing.Point(633, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(60, 60);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 30;
             this.pictureBox1.TabStop = false;
             // 
-            // pictureBox2
+            // lblMessage
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::LockByte.Properties.Resources.decryption;
-            this.pictureBox2.Location = new System.Drawing.Point(248, 234);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(51, 35);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 34;
-            this.pictureBox2.TabStop = false;
+            this.lblMessage.BackColor = System.Drawing.Color.Transparent;
+            this.lblMessage.Font = new System.Drawing.Font("Century Schoolbook", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMessage.ForeColor = System.Drawing.Color.Green;
+            this.lblMessage.Location = new System.Drawing.Point(130, 179);
+            this.lblMessage.Name = "lblMessage";
+            this.lblMessage.Size = new System.Drawing.Size(568, 52);
+            this.lblMessage.TabIndex = 34;
+            this.lblMessage.Text = "message";
+            this.lblMessage.Visible = false;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ClientSize = new System.Drawing.Size(565, 281);
-            this.Controls.Add(this.pictureBox2);
+            this.ClientSize = new System.Drawing.Size(705, 281);
+            this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.lblChosenFile);
             this.Controls.Add(this.label2);
@@ -207,7 +208,6 @@
             this.Text = "LockByte";
             this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -220,10 +220,11 @@
         private System.Windows.Forms.Button btnDecrypt;
         private System.Windows.Forms.Button btnEncrypt;
         private System.Windows.Forms.Label lblSubTitle;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblChosenFile;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.SaveFileDialog DecryptionSaveFileDialog;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lblMessage;
     }
 }

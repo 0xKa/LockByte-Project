@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace LockByte
 {
@@ -26,14 +27,13 @@ namespace LockByte
             }
         }
 
-
         public static void EncryptFile(string filePath, string key)
         {
             string encryptedFilePath = filePath + ".lockbyte"; // Output file
 
             using (Aes aesAlg = Aes.Create())
             {
-                aesAlg.Key = GetValidKey256bit(key);  
+                aesAlg.Key = GetValidKey256bit(key); //encrypt the key using sha256
                 aesAlg.GenerateIV();  
 
                 using (FileStream fsOut = new FileStream(encryptedFilePath, FileMode.Create))
@@ -48,6 +48,26 @@ namespace LockByte
                 }
             }
         }
+        public static void EncryptFile(string filePath, string encryptedFilePath, string key)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = GetValidKey256bit(key);  //encrypt the key using SHA-256
+                aesAlg.GenerateIV();
+
+                using (FileStream fsOut = new FileStream(encryptedFilePath, FileMode.Create))
+                {
+                    fsOut.Write(aesAlg.IV, 0, aesAlg.IV.Length);
+
+                    using (CryptoStream csEncrypt = new CryptoStream(fsOut, aesAlg.CreateEncryptor(), CryptoStreamMode.Write))
+                    using (FileStream fsIn = new FileStream(filePath, FileMode.Open))
+                    {
+                        fsIn.CopyTo(csEncrypt);
+                    }
+                }
+            }
+        }
+
         public static void DecryptFile(string encryptedFilePath, string key)
         {
             string decryptedFilePath = GetDecryptedFilePath(encryptedFilePath);
@@ -71,6 +91,31 @@ namespace LockByte
                 }
             }
         }
+        public static void DecryptFile(string encryptedFilePath, string decryptedFilePath, string key)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = GetValidKey256bit(key);  
+
+                using (FileStream fsIn = new FileStream(encryptedFilePath, FileMode.Open))
+                {
+                    byte[] iv = new byte[aesAlg.BlockSize / 8];
+                    fsIn.Read(iv, 0, iv.Length);  
+
+                    aesAlg.IV = iv;  
+
+                    using (CryptoStream csDecrypt = new CryptoStream(fsIn, aesAlg.CreateDecryptor(), CryptoStreamMode.Read))
+                    using (FileStream fsOut = new FileStream(decryptedFilePath, FileMode.Create))
+                    {
+                        csDecrypt.CopyTo(fsOut);
+                    }
+                }
+            }
+
+            MessageBox.Show("File decrypted successfully!");
+        }
+
+
         private static string GetDecryptedFilePath(string encryptedFilePath)
         {
             string originalFilePath = encryptedFilePath.Replace(".enc", ""); // Remove .enc
