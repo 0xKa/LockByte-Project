@@ -38,8 +38,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblChosenFile = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblMessage = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +50,7 @@
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowse.Font = new System.Drawing.Font("Century Schoolbook", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBrowse.ForeColor = System.Drawing.Color.White;
-            this.btnBrowse.Location = new System.Drawing.Point(581, 234);
+            this.btnBrowse.Location = new System.Drawing.Point(554, 234);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(112, 35);
             this.btnBrowse.TabIndex = 25;
@@ -139,7 +139,7 @@
             this.lblChosenFile.ForeColor = System.Drawing.Color.White;
             this.lblChosenFile.Location = new System.Drawing.Point(130, 78);
             this.lblChosenFile.Name = "lblChosenFile";
-            this.lblChosenFile.Size = new System.Drawing.Size(568, 97);
+            this.lblChosenFile.Size = new System.Drawing.Size(536, 97);
             this.lblChosenFile.TabIndex = 32;
             this.lblChosenFile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -150,7 +150,7 @@
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.Font = new System.Drawing.Font("Century Schoolbook", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(414, 234);
+            this.btnClear.Location = new System.Drawing.Point(387, 234);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(161, 35);
             this.btnClear.TabIndex = 33;
@@ -159,17 +159,6 @@
             this.btnClear.Visible = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::LockByte.Properties.Resources.LockByte_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(633, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(60, 60);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 30;
-            this.pictureBox1.TabStop = false;
-            // 
             // lblMessage
             // 
             this.lblMessage.BackColor = System.Drawing.Color.Transparent;
@@ -177,17 +166,28 @@
             this.lblMessage.ForeColor = System.Drawing.Color.Green;
             this.lblMessage.Location = new System.Drawing.Point(130, 179);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(568, 52);
+            this.lblMessage.Size = new System.Drawing.Size(536, 52);
             this.lblMessage.TabIndex = 34;
             this.lblMessage.Text = "message";
             this.lblMessage.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::LockByte.Properties.Resources.LockByte_logo;
+            this.pictureBox1.Location = new System.Drawing.Point(606, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(60, 60);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 30;
+            this.pictureBox1.TabStop = false;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ClientSize = new System.Drawing.Size(705, 281);
+            this.ClientSize = new System.Drawing.Size(678, 281);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.lblChosenFile);
