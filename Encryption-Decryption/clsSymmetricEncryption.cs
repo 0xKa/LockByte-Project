@@ -112,7 +112,6 @@ namespace LockByte
                 }
             }
 
-            MessageBox.Show("File decrypted successfully!");
         }
 
 

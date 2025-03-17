@@ -53,10 +53,11 @@ namespace LockByte.Encryption_Decryption
 
             using (EncryptionSaveFileDialog)
             {
-                EncryptionSaveFileDialog.DefaultExt = ".lockbyte";
+                
+                EncryptionSaveFileDialog.DefaultExt = $".{Path.GetExtension(_filepath)}.lockbyte";
                 EncryptionSaveFileDialog.Filter = "Encrypted Files (*.lockbyte)|*.lockbyte|All Files (*.*)|*.*";
 
-                EncryptionSaveFileDialog.FileName = Path.GetFileNameWithoutExtension(_filepath) + ".lockbyte";
+                EncryptionSaveFileDialog.FileName = Path.GetFileNameWithoutExtension(_filepath) + EncryptionSaveFileDialog.DefaultExt;
 
                 if (EncryptionSaveFileDialog.ShowDialog() == DialogResult.OK)
                 {

@@ -66,11 +66,10 @@ namespace LockByte
 
         private void btnEncrypt_Click(object sender, EventArgs e)
         {
-            frmEncryption frmEncryption = new frmEncryption(_filepath);
-            frmEncryption.OnEncryptionCompleted += FrmEncryption_OnEncryptionCompleted;
-            frmEncryption.ShowDialog();
+            frmEncryption frmE = new frmEncryption(_filepath);
+            frmE.OnEncryptionCompleted += FrmEncryption_OnEncryptionCompleted;
+            frmE.ShowDialog();
         }
-
         private void FrmEncryption_OnEncryptionCompleted(object sender, frmEncryption.OnEncryptionCompletedEventArgs e)
         {
             lblMessage.Visible = true;
@@ -80,7 +79,15 @@ namespace LockByte
 
         private void btnDecrypt_Click(object sender, EventArgs e)
         {
-
+            frmDecryption frmD = new frmDecryption(_filepath);
+            frmD.OnDecryptionCompleted += frmDecryption_OnDecryptionCompleted;
+            frmD.ShowDialog();
+        }
+        private void frmDecryption_OnDecryptionCompleted(object sender, frmDecryption.OnDecryptionCompletedEventArgs e)
+        {
+            lblMessage.Visible = true;
+            lblMessage.Text = $"Selected File has been Decrypted Successfully.\nDecrypted File Path: {e.decryptedfilepath}";
+            btnDecrypt.Visible = false;
         }
     }
 }

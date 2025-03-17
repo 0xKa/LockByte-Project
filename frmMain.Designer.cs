@@ -38,7 +38,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblChosenFile = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
-            this.DecryptionSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblMessage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -223,7 +222,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblChosenFile;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.SaveFileDialog DecryptionSaveFileDialog;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblMessage;
     }

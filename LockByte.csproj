@@ -47,6 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Encryption-Decryption\clsSymmetricEncryption.cs" />
+    <Compile Include="Encryption-Decryption\frmDecryption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Encryption-Decryption\frmDecryption.Designer.cs">
+      <DependentUpon>frmDecryption.cs</DependentUpon>
+    </Compile>
     <Compile Include="Encryption-Decryption\frmEncryption.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +74,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Encryption-Decryption\frmDecryption.resx">
+      <DependentUpon>frmDecryption.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Encryption-Decryption\frmEncryption.resx">
       <DependentUpon>frmEncryption.cs</DependentUpon>
     </EmbeddedResource>
