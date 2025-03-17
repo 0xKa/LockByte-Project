@@ -49,6 +49,8 @@ namespace LockByte
 
         private void btnClear_Click(object sender, EventArgs e)
         {
+            btnDecrypt.Enabled = false;
+            btnEncrypt.Enabled = false;
             btnClear.Visible = false;
             _filepath = null;
             lblChosenFile.Text = string.Empty;

@@ -63,6 +63,16 @@ namespace LockByte.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap decryption {
+            get {
+                object obj = ResourceManager.GetObject("decryption", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LockByte_logo {
             get {
                 object obj = ResourceManager.GetObject("LockByte-logo", resourceCulture);
